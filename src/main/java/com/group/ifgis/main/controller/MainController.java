@@ -1,26 +1,38 @@
 package com.group.ifgis.main.controller;
 
 import com.group.ifgis.main.model.CoordinateVO;
+import com.group.ifgis.main.model.UserVO;
+import com.group.ifgis.main.repository.MainRepository;
+import com.group.ifgis.main.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:3000")
 public class MainController {
 
-//    @GetMapping("list")
-//    public ResponseEntity<List<Member>> getMembers() {
-//        List<Member> members = memberService.getMembers();
-//        return new ResponseEntity<>(members, HttpStatus.OK);
-//    }
+    private final MainRepository mainRepository;
+    private final UserRepository userRepository;
+
+
     @GetMapping("/getCoordinate")
-    public ResponseEntity<List<CoordinateVO>> getCoordinate(){
+    public List<CoordinateVO> getCoordinate(){
+
+        List<CoordinateVO> resultCoordinateVO = mainRepository.findAll();
+        
+        return resultCoordinateVO;
+    }
+
+    @PostMapping("/signUp")
+    public Long signUp(@RequestBody UserVO userVO){
 
 
-        return null;
+        userVO = userRepository.save(userVO);
+
+        return userVO.getId();
     }
 }
