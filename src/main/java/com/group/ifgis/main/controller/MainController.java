@@ -2,6 +2,7 @@ package com.group.ifgis.main.controller;
 
 import com.group.ifgis.main.common.JwtTokenProvider;
 import com.group.ifgis.main.model.CoordinateVO;
+import com.group.ifgis.main.model.FoodStoreDTO;
 import com.group.ifgis.main.model.UserVO;
 import com.group.ifgis.main.repository.MainRepository;
 import com.group.ifgis.main.repository.UserComRepository;
@@ -33,11 +34,11 @@ public class MainController {
     public final PasswordEncoder passwordEncoder;
 
 
-    @GetMapping("/getCoordinate")
-    public List<CoordinateVO> getCoordinate() {
+    @GetMapping("/getFoodStoreData")
+    public List<FoodStoreDTO> getFoodStoreData() {
 
-        List<CoordinateVO> resultCoordinateVO = mainRepository.findAll();
-        return resultCoordinateVO;
+        List<FoodStoreDTO> resultFoodStoreDTO = mainRepository.findAll();
+        return resultFoodStoreDTO;
     }
 
     @PostMapping("/signUp")
@@ -50,7 +51,6 @@ public class MainController {
             return -1;
         }
 
-        System.out.print(userVO.getPassword());
         //패스워드 스프링 시큐리티 암호화 설정
         userVO.setPassword(passwordEncoder.encode(userVO.getPassword()));
         userVO = userRepository.save(userVO);
@@ -83,5 +83,11 @@ public class MainController {
 
         return resultMap;
 
+    }
+
+    @PostMapping("/insertFoodInformation")
+    public Long insertFoodInformation(@RequestBody FoodStoreDTO foodStoreDTO){
+
+        return mainRepository.save(foodStoreDTO).getId();
     }
 }

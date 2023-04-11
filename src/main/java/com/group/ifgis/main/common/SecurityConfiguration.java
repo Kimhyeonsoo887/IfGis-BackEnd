@@ -15,6 +15,8 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import java.util.Arrays;
+
 
 @Configuration
 @RequiredArgsConstructor
@@ -41,24 +43,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .cors()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/getCoordinate").permitAll()
+                .antMatchers("/getFoodStoreData").permitAll()
                 .antMatchers("/signUp").permitAll()
                 .antMatchers("/login").permitAll()
+                .antMatchers("/insertFoodInformation").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),
                         UsernamePasswordAuthenticationFilter.class); // JwtAuthenticationFilter를 UsernamePasswordAuthenticationFilter 전에 넣는다
                 // + 토큰에 저장된 유저정보를 활용하여야 하기 때문에 CustomUserDetailService 클래스를 생성합니다.
                 http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .formLogin()
-                    .loginPage("/login")
-                    .loginProcessingUrl("/loginProc")
-                    .defaultSuccessUrl("/")
-                    .and()
-                .logout()
-                .logoutSuccessUrl("/")
-                .permitAll()
                 ;
         http.csrf().disable();
 
@@ -68,6 +62,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
+        //configuration.setAllowedOrigins(Arrays.asList("http://183.109.96.235:3000"));
         configuration.addAllowedOrigin("*"); // 모든 Origin 허용
         configuration.addAllowedMethod("POST");
         configuration.addAllowedMethod("GET"); // HTTP Method 허용
@@ -76,6 +71,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
+
 
 
 }

@@ -19,7 +19,7 @@ import javax.persistence.*;
 public class CoordinateVO {
 
     @Id  // Primary Key 지정
-    @GeneratedValue(strategy = GenerationType.IDENTITY)  // AUTO_INCREMENT 설정 (id값이 null일 경우 자동 생성)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "seq")  // 컬럼 지정
     private Long seq;
 
