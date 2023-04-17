@@ -9,7 +9,6 @@ import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 
-@SuperBuilder
 @NoArgsConstructor
 @Setter
 @Getter
