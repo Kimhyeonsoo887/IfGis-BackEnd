@@ -4,10 +4,10 @@ import com.group.ifgis.main.model.BoardDTO;
 import com.group.ifgis.main.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -25,4 +25,14 @@ public class BoardController {
         return resultList;
     }
 
+    @PostMapping("/getBoardDetail")
+    public Optional<BoardDTO> getBoardDetail(@RequestBody BoardDTO boardDTO){
+
+
+        Optional<BoardDTO> resultDTO = boardRepository.findById(boardDTO.getId());
+
+
+        return resultDTO;
+
+    }
 }
