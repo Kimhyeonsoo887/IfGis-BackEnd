@@ -26,12 +26,18 @@ public class BoardController {
     }
 
     @PostMapping("/getBoardDetail")
-    public Optional<BoardDTO> getBoardDetail(@RequestBody BoardDTO boardDTO){
+    public Object getBoardDetail(@RequestBody BoardDTO boardDTO){
 
+        if(boardDTO.getId() == null){
+            return "404Error";
+        }
 
         Optional<BoardDTO> resultDTO = boardRepository.findById(boardDTO.getId());
 
-
+        resultDTO.ifPresent(selectBoard-> {
+            selectBoard.setBoard_cnt(resultDTO.get().getBoard_cnt() +1);
+            boardRepository.save(selectBoard);
+        });
         return resultDTO;
 
     }
