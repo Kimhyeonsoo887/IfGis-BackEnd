@@ -49,6 +49,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/insertFoodInformation").permitAll()
                 .antMatchers("/getBoardList").permitAll()
                 .antMatchers("/getBoardDetail").permitAll()
+                .antMatchers("/getFoodStoreDetailData").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),

@@ -14,10 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 @Slf4j
 @RestController
@@ -33,13 +30,19 @@ public class MainController {
     private final JwtTokenProvider jwtTokenProvider;
     public final PasswordEncoder passwordEncoder;
 
-
     @GetMapping("/getFoodStoreData")
     public List<FoodStoreDTO> getFoodStoreData() {
 
         List<FoodStoreDTO> resultFoodStoreDTO = mainRepository.findAll();
         return resultFoodStoreDTO;
     }
+
+    @PostMapping("/getFoodStoreDetailData")
+    public FoodStoreDTO getFoodStoreDetailData(@RequestBody FoodStoreDTO foodStoreDTO){
+
+        return mainRepository.getFoodStoreDetailData(foodStoreDTO.getId());
+    }
+
 
     @PostMapping("/signUp")
     public int signUp(@RequestBody UserVO userVO) {

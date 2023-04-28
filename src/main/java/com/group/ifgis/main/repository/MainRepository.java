@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-public interface MainRepository extends JpaRepository<FoodStoreDTO,Long> {
+public interface MainRepository extends JpaRepository<FoodStoreDTO,Long>, MainRepositoryCom {
 
 }
