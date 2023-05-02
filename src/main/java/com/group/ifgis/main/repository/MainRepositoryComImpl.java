@@ -1,9 +1,11 @@
 package com.group.ifgis.main.repository;
+import com.group.ifgis.main.model.CodeDTO;
 import com.group.ifgis.main.model.FoodStoreDTO;
 import com.group.ifgis.main.model.QFoodStoreDTO;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 
+import static com.group.ifgis.main.model.QCodeDTO.codeDTO;
 import static com.group.ifgis.main.model.QFoodStoreDTO.foodStoreDTO;
 
 @RequiredArgsConstructor
@@ -20,4 +22,5 @@ public class MainRepositoryComImpl implements MainRepositoryCom{
                 .fetchFirst();
 
     }
+
 }
