@@ -3,17 +3,20 @@ package com.group.ifgis.main.controller;
 import com.group.ifgis.main.common.JwtTokenProvider;
 import com.group.ifgis.main.model.CodeDTO;
 import com.group.ifgis.main.model.FoodStoreDTO;
+import com.group.ifgis.main.model.ReviewDTO;
 import com.group.ifgis.main.model.UserVO;
 import com.group.ifgis.main.repository.MainRepository;
 import com.group.ifgis.main.repository.UserComRepository;
 import com.group.ifgis.main.repository.UserRepository;
+import com.group.ifgis.main.service.ReviewService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.buf.StringUtils;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -34,6 +37,7 @@ public class MainController {
     private final JwtTokenProvider jwtTokenProvider;
     public final PasswordEncoder passwordEncoder;
 
+    private final ReviewService fileService;
 
 
     @GetMapping("/getFoodStoreData")
@@ -132,5 +136,23 @@ public class MainController {
     public Long insertFoodInformation(@RequestBody FoodStoreDTO foodStoreDTO){
 
         return mainRepository.save(foodStoreDTO).getId();
+    }
+
+
+    @PostMapping("/insertFoodReview")
+    public Long insertFoodReview(@RequestParam("title") String title,
+                                 @RequestParam("content") String content,
+                                 @RequestPart(value="file", required = false) MultipartFile file) throws IOException {
+
+
+        ReviewDTO reviewDTO = ReviewDTO.builder().
+                title(title).
+                content(content).
+                build();
+
+        Long id = fileService.reviewSaveFile(reviewDTO, file);
+
+        return id;
+
     }
 }
