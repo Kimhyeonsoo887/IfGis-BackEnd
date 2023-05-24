@@ -8,6 +8,7 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 @SuperBuilder
 @NoArgsConstructor
@@ -60,5 +61,8 @@ public class FoodStoreDTO {
     private Double ma;
 
 
+    @OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL) // (1)
+    @JoinColumn(name="food_fk")
+    private Collection<ReviewDTO> review;
 
 }

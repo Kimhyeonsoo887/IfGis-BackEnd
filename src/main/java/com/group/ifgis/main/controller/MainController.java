@@ -142,17 +142,30 @@ public class MainController {
     @PostMapping("/insertFoodReview")
     public Long insertFoodReview(@RequestParam("title") String title,
                                  @RequestParam("content") String content,
-                                 @RequestPart(value="file", required = false) MultipartFile file) throws IOException {
+                                 @RequestPart(value="file", required = false) MultipartFile file,
+                                 @RequestParam("id") Long id) throws IOException {
 
 
         ReviewDTO reviewDTO = ReviewDTO.builder().
                 title(title).
                 content(content).
+                foodFk(id).
                 build();
 
-        Long id = fileService.reviewSaveFile(reviewDTO, file);
+        Long result_id = fileService.reviewSaveFile(reviewDTO, file);
 
-        return id;
+        return result_id;
 
     }
+
+    @PostMapping("/getFoodReview")
+    public List<ReviewDTO> getFoodReview(@RequestBody Map<String,String> id){
+
+        Optional<FoodStoreDTO> resultList = mainRepository.findById(Long.valueOf(id.get("id")));
+        List<ReviewDTO> resultReviewData = (List<ReviewDTO>) resultList.get().getReview();
+
+
+        return resultReviewData;
+    }
+
 }

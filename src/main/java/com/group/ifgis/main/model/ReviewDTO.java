@@ -39,12 +39,17 @@ public class ReviewDTO {
     @Temporal(TemporalType.DATE)
     private Date createDate = new Date();
 
+    @Column(name = "food_fk")
+    private Long foodFk;
+
+
     @Builder
-    public ReviewDTO(Long id, String title, String content, String fileName, String oriFileName) {
+    public ReviewDTO(Long id, String title, String content, String fileName, String oriFileName, Long foodFk) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.fileName = fileName;
+        this.foodFk = foodFk;
         this.oriFileName = oriFileName;
 
     }
