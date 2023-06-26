@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/IFgisDat?serverTimezone=UTC&characterEncoding=UTF-8
-    username: ifgis
-    password: 158whstj
+    url: jdbc:mysql://database-1.c22g89qlomof.ap-northeast-2.rds.amazonaws.com:3306/ifgisDB?serverTimezone=UTC&characterEncoding=UTF-8
+    username: admin
+    password: 158wjddkwn
 
   jpa:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
