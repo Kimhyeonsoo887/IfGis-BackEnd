@@ -24,4 +24,5 @@ logging:
           descriptor:
             sql:
               BasicBinder: TRACE
-uploadDir: /Users/hyunsookim/ifgisweb/src/uploadImg/
+
+uploadDir: C:\\ifGISFront-end\\IfGIs\\src\\uploadImg

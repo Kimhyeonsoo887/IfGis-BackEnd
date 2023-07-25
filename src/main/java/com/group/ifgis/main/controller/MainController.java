@@ -1,12 +1,10 @@
 package com.group.ifgis.main.controller;
 
 import com.group.ifgis.main.common.JwtTokenProvider;
-import com.group.ifgis.main.model.CodeDTO;
-import com.group.ifgis.main.model.FoodStoreDTO;
-import com.group.ifgis.main.model.ReviewDTO;
-import com.group.ifgis.main.model.UserVO;
+import com.group.ifgis.main.model.*;
 import com.group.ifgis.main.repository.MainRepository;
 import com.group.ifgis.main.repository.UserComRepository;
+import com.group.ifgis.main.repository.UserLogRepository;
 import com.group.ifgis.main.repository.UserRepository;
 import com.group.ifgis.main.service.ReviewService;
 import lombok.RequiredArgsConstructor;
@@ -34,6 +32,7 @@ public class MainController {
     private final UserRepository userRepository;
     //유저 커스터마이징 extends UserComRepository
     private final UserComRepository userComRepository;
+    private final UserLogRepository userLogRepository;
     private final JwtTokenProvider jwtTokenProvider;
     public final PasswordEncoder passwordEncoder;
 
@@ -168,4 +167,15 @@ public class MainController {
         return resultReviewData;
     }
 
+    @PostMapping("/insertLogData")
+    public UserLogDTO insertLogData( @RequestBody Map<String,Object> paramMap){
+
+        UserLogDTO userLogDTO = UserLogDTO.builder().
+                ip(String.valueOf(paramMap.get("ip"))).
+                build();
+
+        userLogDTO = userLogRepository.save(userLogDTO);
+
+        return userLogDTO;
+    }
 }
